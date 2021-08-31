@@ -1,18 +1,18 @@
 package model;
 
-public class attendee {
+public class attendeeModel {
     
     private String asi_login = "";
     private String asi_nombre = "";
     private String asi_apellido = "";
     private String asi_email = "";
-    private int asi_celular = 0;
+    private long asi_celular = 0;
     private String asi_clave = "";
     private String asi_fecha_nto = "";
     
     
-    public attendee(String asi_login, String asi_nombre, String asi_apellido, String asi_email, 
-            int asi_celular, String asi_clave, String asi_fecha_nto){
+    public attendeeModel(String asi_login, String asi_nombre, String asi_apellido, String asi_email, 
+            long asi_celular, String asi_clave, String asi_fecha_nto){
         
         this.asi_login = asi_login;
         this.asi_nombre = asi_nombre;
@@ -82,7 +82,7 @@ public class attendee {
     /**
      * @return the asi_celular
      */
-    public int getAsi_celular() {
+    public long getAsi_celular() {
         return asi_celular;
     }
 
