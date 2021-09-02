@@ -88,7 +88,7 @@ public class attendeeDAO {
             String sql = "SELECT asi_login, asi_nombre, asi_apellido, asi_email, asi_celular, asi_fecha_nto FROM asistente WHERE asi_login=?;";                                   
             PreparedStatement statement = conn.prepareStatement(sql);
             statement.setString(1, alias);
-            ResultSet result = statement.executeQuery(sql);
+            ResultSet result = statement.executeQuery();
             
             while (result.next()) {
                 attendeeModel attendee = new attendeeModel(result.getString(1), result.getString(2), result.getString(3), result.getString(4),
@@ -104,8 +104,33 @@ public class attendeeDAO {
     }
     
     
+//OBRAS VISITADAS POR ALIAS    
+    public ArrayList<attendeeModel> getObrasAsistidasbyAlias(String alias) {
+        ArrayList<attendeeModel> obrasvisitadas = new ArrayList();
+        try {
+            if(conn == null)
+                conn = ConnectionDB.getConnection();
+            
+            String sql = "select obra.ob_titulo from obra, obraasistida where obraasistida.oa_user = ? and obraasistida.oa_obra=obra.ob_id ORDER BY obra.ob_titulo ASC;";                                   
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setString(1, alias);
+            ResultSet result = statement.executeQuery();
+            
+            while (result.next()) {
+                attendeeModel visitas_attendee = new attendeeModel(result.getString(1));               
+                obrasvisitadas.add( visitas_attendee );
+            }
+        } 
+        catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Código : " + ex.getErrorCode() 
+                                        + "\nError :" + ex.getMessage());
+        }        
+        return obrasvisitadas;
+    }
+    
+    
     //ACTUALIZACIÓN ASISTENTE
-    public void updatePresentation(attendeeModel attendee) {
+    public int updateAttendee(attendeeModel attendee) {
         try {
             if(conn == null)
                 conn = ConnectionDB.getConnection();
@@ -118,18 +143,23 @@ public class attendeeDAO {
             statement.setString(3, attendee.getAsi_email());
             statement.setLong(4, attendee.getAsi_celular());
             statement.setString(5, attendee.getAsi_fecha_nto());
-            statement.setString(1, attendee.getAsi_login());
+            statement.setString(6, attendee.getAsi_login());
             int rowsUpdated = statement.executeUpdate();
-            if (rowsUpdated > 0) 
-                JOptionPane.showMessageDialog(null, "El registro fue actualizado exitosamente !");
+            if (rowsUpdated > 0){
+                return 0;
+            }else{
+                return 1;
+            }            
+               
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Código : " + ex.getErrorCode() 
                                         + "\nError :" + ex.getMessage());
+            return 2;
         }
     }
     
     //ELIMINACION ASISTENTE
-    public void deletePresentation(String Asi_login) {
+    public int deleteAttendee(String Asi_login) {
         try {
             if(conn == null)
                 conn = ConnectionDB.getConnection();
@@ -139,11 +169,14 @@ public class attendeeDAO {
             statement.setString(1, Asi_login);
             int rowsDeleted = statement.executeUpdate();
             if (rowsDeleted > 0) {
-                JOptionPane.showMessageDialog(null, "El registro fue borrado exitosamente !");
+                return 0;
+            }else{
+                return 1;
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Código : "
                     + ex.getErrorCode() + "\nError :" + ex.getMessage());
+            return 1;
         }
     }
     

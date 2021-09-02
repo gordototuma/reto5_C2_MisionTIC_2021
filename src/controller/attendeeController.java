@@ -64,4 +64,32 @@ public class attendeeController {
         return attendee;        
     }
     
+    public ArrayList<attendeeModel> getObrasAsistidasbyAlias(String alias){
+        ArrayList<attendeeModel> asistencias_attendee = new ArrayList();
+        attendeeDAO asistenciasAttendeesDAO = new attendeeDAO();
+        asistencias_attendee = asistenciasAttendeesDAO.getObrasAsistidasbyAlias(alias);       
+        
+        return asistencias_attendee;        
+    }
+    
+    
+    //Eliminar asistente
+    
+    public int delete(String asi_login){        
+        attendeeDAO attendeeDAO = new attendeeDAO();      
+        return attendeeDAO.deleteAttendee(asi_login);
+    }
+    
+    
+    //Actualizar Asistente
+    public int update(String asi_login, String asi_nombre, String asi_apellido, String asi_email, 
+            long asi_celular, String asi_fecha_nto){        
+        
+        attendeeDAO updateAttendeeDAO = new attendeeDAO();
+        attendeeModel UpdateAttendeeModel = new attendeeModel(asi_login, asi_nombre, asi_apellido, asi_email, 
+            asi_celular, null,asi_fecha_nto);
+        
+        return updateAttendeeDAO.updateAttendee(UpdateAttendeeModel);
+    }
+    
 }

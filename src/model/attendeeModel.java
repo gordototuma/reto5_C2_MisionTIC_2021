@@ -9,6 +9,7 @@ public class attendeeModel {
     private long asi_celular = 0;
     private String asi_clave = "";
     private String asi_fecha_nto = "";
+    private String obras_visitada = "";
     
     
     public attendeeModel(String asi_login, String asi_nombre, String asi_apellido, String asi_email, 
@@ -21,6 +22,11 @@ public class attendeeModel {
         this.asi_celular = asi_celular;
         this.asi_clave = asi_clave;
         this.asi_fecha_nto = asi_fecha_nto;       
+    }
+    
+    
+    public attendeeModel(String obras_visitada){
+        this.obras_visitada = obras_visitada;
     }
 
     /**
@@ -35,6 +41,21 @@ public class attendeeModel {
      */
     public void setAsi_login(String asi_login) {
         this.asi_login = asi_login;
+    }
+    
+    
+    /**
+     * @return the obras_visitada
+     */
+    public String getobras_visitada() {
+        return obras_visitada;
+    }
+
+    /**
+     * @param obras_visitada the obras_visitada to set
+     */
+    public void obras_visitada(String obras_visitada) {
+        this.obras_visitada = obras_visitada;
     }
 
     /**
@@ -126,6 +147,14 @@ public class attendeeModel {
         Object[] data = {asi_login, asi_nombre, asi_apellido, asi_email, asi_celular, asi_fecha_nto};
         return data;
     }
+    
+    public Object[] toArrayO(){
+        //arreglo de tipo objeto
+        Object[] data = {obras_visitada};
+        return data;
+    }
+    
+    
     
     
     
