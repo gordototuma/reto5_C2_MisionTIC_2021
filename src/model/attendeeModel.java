@@ -121,6 +121,12 @@ public class attendeeModel {
         this.asi_fecha_nto = asi_fecha_nto;
     }
     
+    public Object[] toArray(){
+        //arreglo de tipo objeto
+        Object[] data = {asi_login, asi_nombre, asi_apellido, asi_email, asi_celular, asi_fecha_nto};
+        return data;
+    }
+    
     
     
     

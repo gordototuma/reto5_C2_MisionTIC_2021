@@ -6,6 +6,7 @@
 package controller;
 
 import access.attendeeDAO;
+import java.util.ArrayList;
 import java.util.Random;
 import model.attendeeModel;
 
@@ -45,6 +46,22 @@ public class attendeeController {
         attendeeDAO.insertAttendee(attendee);
         
         return 0;
+    }
+    
+    public ArrayList<attendeeModel> readAttendees(){
+        ArrayList<attendeeModel> attendees = new ArrayList();
+        attendeeDAO readAttendeesDAO = new attendeeDAO();
+        attendees = readAttendeesDAO.getAllAttendees();       
+        
+        return attendees;        
+    }
+    
+    public ArrayList<attendeeModel> readAttendeesbyAlias(String alias){
+        ArrayList<attendeeModel> attendee = new ArrayList();
+        attendeeDAO readAttendeesDAO = new attendeeDAO();
+        attendee = readAttendeesDAO.getAllAttendeesbyAlias(alias);       
+        
+        return attendee;        
     }
     
 }

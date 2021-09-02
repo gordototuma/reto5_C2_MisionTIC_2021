@@ -79,6 +79,31 @@ public class attendeeDAO {
     }
     
     
+    public ArrayList<attendeeModel> getAllAttendeesbyAlias(String alias) {
+        ArrayList<attendeeModel> allAttendee = new ArrayList();
+        try {
+            if(conn == null)
+                conn = ConnectionDB.getConnection();
+            
+            String sql = "SELECT asi_login, asi_nombre, asi_apellido, asi_email, asi_celular, asi_fecha_nto FROM asistente WHERE asi_login=?;";                                   
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setString(1, alias);
+            ResultSet result = statement.executeQuery(sql);
+            
+            while (result.next()) {
+                attendeeModel attendee = new attendeeModel(result.getString(1), result.getString(2), result.getString(3), result.getString(4),
+                        result.getLong(5),null,result.getString(6));               
+                allAttendee.add( attendee );
+            }
+        } 
+        catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Código : " + ex.getErrorCode() 
+                                        + "\nError :" + ex.getMessage());
+        }        
+        return allAttendee;
+    }
+    
+    
     //ACTUALIZACIÓN ASISTENTE
     public void updatePresentation(attendeeModel attendee) {
         try {
