@@ -111,13 +111,13 @@ public class attendeeDAO {
             if(conn == null)
                 conn = ConnectionDB.getConnection();
             
-            String sql = "select obra.ob_titulo from obra, obraasistida where obraasistida.oa_user = ? and obraasistida.oa_obra=obra.ob_id ORDER BY obra.ob_titulo ASC;";                                   
+            String sql = "select obra.ob_titulo, obraasistida.oa_fecha from obra, obraasistida where obraasistida.oa_user = ? and obraasistida.oa_obra=obra.ob_id ORDER BY obra.ob_titulo ASC;";                                   
             PreparedStatement statement = conn.prepareStatement(sql);
             statement.setString(1, alias);
             ResultSet result = statement.executeQuery();
             
             while (result.next()) {
-                attendeeModel visitas_attendee = new attendeeModel(result.getString(1));               
+                attendeeModel visitas_attendee = new attendeeModel(result.getString(1),result.getString(2));               
                 obrasvisitadas.add( visitas_attendee );
             }
         } 

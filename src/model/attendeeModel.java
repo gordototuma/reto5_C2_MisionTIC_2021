@@ -10,6 +10,7 @@ public class attendeeModel {
     private String asi_clave = "";
     private String asi_fecha_nto = "";
     private String obras_visitada = "";
+    private String obras_visitada_fecha = "";
     
     
     public attendeeModel(String asi_login, String asi_nombre, String asi_apellido, String asi_email, 
@@ -25,8 +26,9 @@ public class attendeeModel {
     }
     
     
-    public attendeeModel(String obras_visitada){
+    public attendeeModel(String obras_visitada, String obras_visitada_fecha){
         this.obras_visitada = obras_visitada;
+        this.obras_visitada_fecha = obras_visitada_fecha;
     }
 
     /**
@@ -150,7 +152,7 @@ public class attendeeModel {
     
     public Object[] toArrayO(){
         //arreglo de tipo objeto
-        Object[] data = {obras_visitada};
+        Object[] data = {obras_visitada, obras_visitada_fecha};
         return data;
     }
     
